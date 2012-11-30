@@ -8,8 +8,10 @@ public interface SCAPersistencia {
 	public abstract void salvar(Turma turma);
 	public abstract void salvar(Disciplina disciplina);
 	public abstract void salvar(Professor professor);
+	public abstract void salvar(Curso curso);
 	public abstract ArrayList<Turma> recuperarTurmas();
 	public abstract ArrayList<Disciplina> recuperarDisciplinas();
 	public abstract ArrayList<Curso> recuperarCursos();
-	
+	public abstract ArrayList<Professor> recuperarProfessores();
+
 }

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import poo.sca.io.*;
 
 public class SCAFacade {
-	private SCAPersistenciaMemoria persistencia = new SCAPersistenciaMemoria();
+	private SCAPersistencia persistencia = new SCAPersistenciaArquivo();
 	
 	public void criarDisciplina(Disciplina d) throws SCAException {
 		ArrayList<Disciplina> disciplinas = persistencia.recuperarDisciplinas();
