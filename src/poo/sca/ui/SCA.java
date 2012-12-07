@@ -16,7 +16,7 @@ public class SCA {
 	}
 	
 	public static void exibirMenu() {
-		String o = JOptionPane.showInputDialog("Bem vindo ao sistema de Gerenciamento Academico!\nEscolha a opção desejada:\n1-Cadastrar Disciplina\n2-Listar Disciplinas\n3-Cadastrar Curso\n4-Listar Cursos\n5-Cadastrar Professor\n6-Listar Professores\n7-Gerenciar Turmas","Sua opção");		
+		String o = JOptionPane.showInputDialog("Bem vindo ao sistema de Gerenciamento Academico!\nEscolha a opção desejada:\n1-Cadastrar Disciplina\n2-Listar Disciplinas\n3-Cadastrar Curso\n4-Listar Cursos\n5-Cadastrar Professor\n6-Listar Professores\n7-Gerenciar Turmas\n0-Sair","Sua opção");		
 		lerEntradaUsuario(o);
 	}
 	
@@ -39,7 +39,8 @@ public class SCA {
 			exibirMenu();
 			break;
 		case 2:
-			Iterator<Disciplina> d1 =  facade.getDisciplinasIterator();
+			Iterator<Disciplina> d1;
+			d1 = facade.getDisciplinasIterator();
 			while (d1.hasNext()) {
 				Disciplina d2 = d1.next();
 				disciplinas = disciplinas + "[ Código: " + d2.getCodigo() + " || Nome: " + d2.getNome() + " ] " + "\n";
@@ -71,7 +72,7 @@ public class SCA {
 			break;
 		case 5:
 			Professor p = new Professor();
-			codigo = JOptionPane.showInputDialog("Mátricula do professor:");
+			codigo = JOptionPane.showInputDialog("Matrícula do professor:");
 			p.setMatricula(Integer.parseInt(codigo));
 			nome = JOptionPane.showInputDialog("Nome do professor:");
 			p.setNome(nome);
@@ -93,7 +94,7 @@ public class SCA {
 			JOptionPane.showMessageDialog(null, professores);
 			break;
 	case 7:
-		int op2 = Integer.parseInt(JOptionPane.showInputDialog(null, "1-Criar Turma\n2-Editar Turma\n3-Remover Turma\n4-Verificar Turmas"));
+		int op2 = Integer.parseInt(JOptionPane.showInputDialog(null, "1-Criar Turma\n2-Adicionar curso a Turma\n3-Adicionar professor a Turma\n4-Verificar Turmas"));
 		switch (op2) {
 		case 1:
 			Turma t = new Turma();
@@ -101,6 +102,8 @@ public class SCA {
 			t.setNumero(Integer.parseInt(codigo));
 			String periodo = JOptionPane.showInputDialog("Período da turma:");
 			t.setPeriodo(periodo);
+			String horario = JOptionPane.showInputDialog("Horário da turma:");
+			t.setHorario(horario);
 			String numdiscI = JOptionPane.showInputDialog("Número da disciplina:");
 			int numdisc = Integer.parseInt(numdiscI);
 			d1 =  facade.getDisciplinasIterator();
@@ -112,7 +115,7 @@ public class SCA {
 					facade.criarTurma(t);
 					JOptionPane.showMessageDialog(null, "Turma adicionada com sucesso!");
 					} catch (SCAException e) {
-						JOptionPane.showMessageDialog(null, e.getMessage());
+					JOptionPane.showMessageDialog(null, e.getMessage());
 					}
 					exibirMenu();
 					break;
@@ -121,21 +124,42 @@ public class SCA {
 			JOptionPane.showMessageDialog(null, "Disciplina não encontrada, tente novamente!");
 			exibirMenu();
 			break;
+		case 2:
+			int numTurma = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número da turma: "));
+			int numCurso = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número do do curso:"));
+			try {
+			facade.addCursoTurma(numTurma, numCurso);
+			JOptionPane.showMessageDialog(null, "Curso adicionado com sucesso!");				
+			} catch (SCAException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());				
+			}
+			exibirMenu();
+			break;
+		case 3:
+			numTurma = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número da turma: "));
+			int numProfessor = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número do professor:"));
+			try {
+			facade.addProfessorTurma(numTurma, numProfessor);
+			JOptionPane.showMessageDialog(null, "Professor adicionado com sucesso!");				
+			} catch (SCAException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());				
+			}
+			exibirMenu();
+			break;
 		case 4:
 			Iterator<Turma> t1;
+			String turmasList = "";
 			t1 = facade.getTurmasIterator();
 			while (t1.hasNext()) {
 				Turma t2 = t1.next();
-				turmas = turmas + "[ Num da turma: " + t2.getNumero() + " || Disciplina: " + t2.getDisciplina().getNome() + " ]" + "\n";
+				turmasList += "[ Num da turma: " + t2.getNumero() + " || Disciplina: " + t2.getDisciplina().getNome() + " ]" + "\n";
 			}
-			int numTurma = Integer.parseInt(JOptionPane.showInputDialog(turmas, "Digite o número da turma: "));
-			turmas = "";
+			numTurma = Integer.parseInt(JOptionPane.showInputDialog(turmasList, "Digite o número da turma: "));
 			t1 = facade.getTurmasIterator();
 			while (t1.hasNext()) {
 				Turma t2 = t1.next();
 				if (t2.getNumero() == numTurma) {
 					turmas = "Número da turma: " + t2.getNumero() + "\nHorário: " + t2.getHorario() + "\nPeríodo: " + t2.getPeriodo() + "\nDisciplina: " + t2.getDisciplina().getNome() + "\nProfessor(es): \n";
-					}
 					p1 = t2.getProfessoresIterator();
 					while (p1.hasNext()) {
 						Professor p2 = p1.next();
@@ -147,8 +171,11 @@ public class SCA {
 						Curso c2 = c1.next();
 						turmas = turmas + c2.getNome() + "\n";
 					}
-					JOptionPane.showMessageDialog(null, turmas);
 				}
+				}
+			JOptionPane.showMessageDialog(null, turmas);
+			exibirMenu();
+			break;
 		}
 		}
 	}
