@@ -88,7 +88,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 		pwriter.flush();
 		pwriter.close();
 		} catch (IOException e) {
-			System.out.println("IOEXCEPTION!");
+			// falta terminar de tratar exceção
 		}
 	}
 	
@@ -108,7 +108,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 		pwriter.flush();
 		pwriter.close();
 		} catch (IOException e) {
-			System.out.println("IOEXCEPTION!");
+			// falta terminar de tratar exceção
 		}
 	}
 
@@ -128,7 +128,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 		pwriter.flush();
 		pwriter.close();
 		} catch (IOException e) {
-			System.out.println("IOEXCEPTION!");
+			// falta terminar de tratar exceção
 		}
 	}
 
@@ -184,7 +184,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 			turmas.add(t);
 		}
 		} catch (IOException e) {
-			System.out.println("IOCHEGOU");
+			// falta terminar de tratar exceção
 		} 
 		return turmas;
 	}
@@ -205,7 +205,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 			disciplinas.add(d);
 		}
 		} catch (IOException e) {
-			System.out.println("IOCHEGOU");
+			// falta terminar de tratar exceção
 		} 
 		return disciplinas;
 	}
@@ -227,7 +227,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 		pwriter.flush();
 		pwriter.close();
 		} catch (IOException e) {
-			System.out.println("IOEXCEPTION!");
+			// falta terminar de tratar exceção
 		}
 }
 
@@ -248,7 +248,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 			cursos.add(c);
 		}
 		} catch (IOException e) {
-			System.out.println("IOCHEGOU");
+			// falta terminar de tratar exceção
 		} 
 		return cursos;
 	}
@@ -269,7 +269,7 @@ public class SCAPersistenciaArquivo implements SCAPersistencia {
 			professores.add(p);
 		}
 		} catch (IOException e) {
-			System.out.println("IOCHEGOU");
+			// falta terminar de tratar exceção
 		} 
 		return professores;
 	}
