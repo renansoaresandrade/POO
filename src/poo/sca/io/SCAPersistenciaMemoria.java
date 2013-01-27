@@ -13,27 +13,27 @@ public class SCAPersistenciaMemoria implements SCAPersistencia {
 	public void salvar(Turma turma) {
 		turmas.add(turma);
 	}
-	
+
 	public void salvar(Disciplina disciplina) {
 		disciplinas.add(disciplina);
 	}
-	
+
 	public void salvar(Professor professor) {
 		professores.add(professor);
 	}
-	
+
 	public void salvar(Curso curso) {
 		cursos.add(curso);
 	}
-	
+
 	public ArrayList<Turma> recuperarTurmas() {
 		return turmas;
 	}
-	
+
 	public ArrayList<Disciplina> recuperarDisciplinas() {
 		return disciplinas;
 	}
-	
+
 	public ArrayList<Curso> recuperarCursos() {
 		return cursos;
 	}
@@ -41,5 +41,16 @@ public class SCAPersistenciaMemoria implements SCAPersistencia {
 	public ArrayList<Professor> recuperarProfessores() {
 		return professores;
 	}
-	
+
+	@Override
+	public void salvar(int numTurma, Professor p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void salvar(int numTurma, Curso c) {
+		// TODO Auto-generated method stub
+		
+	}
 }

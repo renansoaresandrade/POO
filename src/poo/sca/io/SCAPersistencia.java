@@ -15,5 +15,4 @@ public interface SCAPersistencia {
 	public abstract ArrayList<Disciplina> recuperarDisciplinas();
 	public abstract ArrayList<Curso> recuperarCursos();
 	public abstract ArrayList<Professor> recuperarProfessores();
-
 }

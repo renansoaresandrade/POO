@@ -6,9 +6,15 @@ import java.util.Iterator;
 import poo.sca.io.*;
 
 public class SCAFacade {
-	private SCAPersistencia persistencia = new SCAPersistenciaArquivo();
+	private SCAPersistencia persistencia = new SCAPersistenciaMemoria();
 	
 	public void criarDisciplina(Disciplina d) throws SCAException {
+		if (d.getCodigo() > 10000) {
+			throw new SCAException("Código de disciplina inválido! Máximo 10000");
+		}
+		if (d.getNome().length() == 0 || d.getNome().equals("null")) {
+			throw new SCAException("Nome inválido: " + d.getNome());
+		}
 		ArrayList<Disciplina> disciplinas = persistencia.recuperarDisciplinas();
 		for (int i = 0; i < disciplinas.size(); i++) {
 			if (disciplinas.get(i).getCodigo() == d.getCodigo()) {
@@ -80,7 +86,13 @@ public class SCAFacade {
 		persistencia.salvar(numTurma, c);
 	}
 	
-	public void criarCurso(Curso c) throws SCAException {	
+	public void criarCurso(Curso c) throws SCAException {
+		if (c.getCodigo() > 10000) {
+			throw new SCAException("Código de curso inválido! Máximo 10000");
+		}
+		if (c.getNome().length() == 0 || c.getNome().equals("null")) {
+			throw new SCAException("Nome inválido: " + c.getNome());
+		}
 		ArrayList<Curso> cursos = persistencia.recuperarCursos();
 		for (int i = 0; i < cursos.size(); i++) {
 			if (cursos.get(i).getCodigo() == c.getCodigo()) {
@@ -91,6 +103,12 @@ public class SCAFacade {
 	}	
 
 	public void criarProfessor(Professor p) throws SCAException {
+		if (p.getMatricula() > 10000) {
+			throw new SCAException("Matrícula de professor inválido! Máximo 10000");
+		}
+		if (p.getNome().length() == 0 || p.getNome().equals("null")) {
+			throw new SCAException("Nome inválido: " + p.getNome());
+		}
 		ArrayList<Professor> professores = persistencia.recuperarProfessores();
 		for (int i = 0; i < professores.size(); i++) {
 			if (professores.get(i).getMatricula() == p.getMatricula()) {
@@ -114,6 +132,26 @@ public class SCAFacade {
 	
 	public void criarTurma(Turma t) throws SCAException {
 		ArrayList<Turma> turmas = persistencia.recuperarTurmas();
+		
+		Iterator<Curso> cursos = t.getCursosIterator();			
+		if (!cursos.hasNext()) {
+			throw new SCAException("Não há cursos cadastrados.");
+		}
+		
+		Iterator<Professor> professores = t.getProfessoresIterator();			
+		if (!professores.hasNext()) {
+			throw new SCAException("Não há professores cadastrados.");
+		}
+				
+		for (int i = 0; i < turmas.size(); i++) {
+			if ((turmas.get(i).getDisciplina().getCodigo()) == (t.getDisciplina().getCodigo())) {
+				throw new SCAException("Disciplina com mesmo código já existe!");
+			}
+		}
+		
+		if (t.getDisciplina() == null) {
+			throw new SCAException("Não existem disciplinas cadastradas!");
+		}
 		for (int i = 0; i < turmas.size(); i++) {
 			if (turmas.get(i).getNumero() == t.getNumero()) {
 				if (turmas.get(i).getPeriodo().equals(t.getPeriodo())) {
